@@ -1,0 +1,61 @@
+\section{Partially Ordered Sets}
+
+\begin{definition}[Strict/Irreflexive Partial Order]
+    A strict partial order is a set $P$ with a relation $<$ such that the following properties hold.
+    \begin{itemize}
+        \item Asymmetry: $a < b \implies b \nless a$
+        \item Transitivity: $a < b \land b < c \implies a < c$  
+        \item Irreflexivity: $a \nless a$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Non-strict/Reflexive Partial Order]
+    A non-strict partial order is a set $P$ with a relation $\leq$ such that the following properties hold.
+    \begin{itemize}
+        \item Antisymmetry: $a \leq b \land b \leq a \implies a = b$
+        \item Transitivity: $a \leq b \land b \leq c \implies a \leq c$  
+        \item Reflexivity: $a \leq a$
+    \end{itemize}
+\end{definition}
+
+In the following, the definitions are given with non-strict posets, but definition for strict posets is analogous for the most part.
+
+\begin{definition}[Hasse Diagram]
+    The Hasse diagram is a directed graph with vertices $P$ where $(a, b)$ is an arc if $a \leq b$ and there is no "middle" $c$ such that $a \leq c \leq b$.
+\end{definition}
+
+\begin{definition}[Minimal/Maximal Element]
+    $a$ is a min./max. element $\in P$ if 
+    \[
+    \forall b \in P: a \leq b \text{ (minimal element)}
+    \]
+    \[
+    \forall b \in P: a \geq b \text{ (maximal element)}
+    \]
+\end{definition}
+
+\begin{definition}[Möbius Function on Poset]
+    Let $(P, \leq)$ be a locally finite poset with a single minimal element.
+    $\mu: P \times P \to \mathbb{R}$ is the Möbius function of $P$ if
+    \[
+    \forall x,y: \sum_{z \in [x, y]} \mu(z, y) = \delta_{x, y} = 
+    \begin{cases}
+        0, & \text{if } x \neq y\\
+        1, & \text{if } x = y
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}[Summation Function]
+    Let $f: P \to \mathbb{R}$. Then the summation function $S_f(x)$ is
+    \[
+    S_f(x) = \sum_{z \in [0, x]} f(z)
+    \]
+\end{definition}
+
+\begin{theorem}[Möbius Inversion]
+    Let $f: P \to \mathbb{R}$, $S_f(x)$ is the summation function, $\mu(x, y)$ is the Möbius function of $P$. Then the following "inversion" holds.
+    \[
+    f(x) = \sum_{z \in [0, x]} S_f(z) \mu(z, x)
+    \]
+\end{theorem}

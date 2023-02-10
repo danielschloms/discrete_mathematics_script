@@ -1,0 +1,159 @@
+\section{Graph Theory}
+
+In this lecture only finite graphs are covered, therefore any graph here can be considered finite.
+
+\subsection{Basics}
+
+\begin{definition}[Simple Graph]
+A Simple Graph $\bm{G = (V, E)}$ consists of \textbf{Vertices} $\bm{V}$ and \textbf{Edges} $\bm{E \subseteq \{\{u, v\} \vert u, v \in V\}}$.
+\end{definition}
+
+\begin{definition}[Adjacency]
+Vertices $u, v$ of an Edge $\{u, v\}$ are \textbf{adjacent}.
+\end{definition}
+
+\begin{definition}[Incidence]
+Vertex $v$ is \textbf{incident} to edges $\{u, v\}$ containing that vertex $v$. 
+\end{definition}
+\
+\missing[inline]{Loop definition}\
+\missing[inline]{Multigraph definition}\
+\missing[inline]{Weighted Graph definition}\
+\missing[inline]{Neighbor definition}\
+
+\begin{definition}[Degree of a Vertex]
+Degree $d(u) = \{e \in E \vert u \text{ incident to } e\}$
+\end{definition}
+
+\begin{definition}[Regularity of a Graph]
+A graph is regular of degree $r$ if $d(u) = r$ for all $u \in V$.
+\end{definition}
+
+\begin{definition}[Directed (Multi-)Graph]
+A \textbf{directed (multi-)graph} is a graph where every edge has a \textbf{head} and a \textbf{tail}. Or alternatively, edges are \textbf{pairs} $\bm{(u, v)}$ of vertices, not sets. In a directed graph there is an additional distinction between \textbf{incoming degree} $\bm{d^+(u)}$ and \textbf{outgoing degree} $\bm{d^-(u)}$.
+\begin{gather*}
+d^+(u) = \vert \{e \in E \vert e = (u, v) \text{ for some } v \in V\} \\
+d^-(u) = \vert \{e \in E \vert e = (v, u) \text{ for some } v \in V\}
+\end{gather*}
+\end{definition}
+
+\begin{lemma}[Handshaking Lemma] 
+\[\displaystyle 
+\sum_{v \in V}^{} d(v) = 2 \vert E \vert
+\]
+\end{lemma}
+
+\begin{definition}[Degree Matrix]
+The \textbf{degree matrix} $D$ is a matrix, where the diagonal elements $a_{ii}$ are the degree of the vertex $i$, the other elements are 0.
+\end{definition}
+
+\begin{definition}[Laplacian Matrix]
+
+Laplacian matrix $L = D - A$, where $D$ is the \textbf{degree matrix}, and $A$ is the \textbf{adjacency matrix}.
+
+\end{definition}
+
+\begin{theorem}[Kirchhoff's Matrix Tree Theorem]
+For a given connected graph $G$ with $n$ labeled vertices, let $\lambda_1, \lambda_2, \ldots, \lambda_{n-1}$ be the non-zero eigenvalues of its Laplacian matrix. Then the number of spanning trees of $G$ is 
+\[
+t(G)=\frac{1}{n} \lambda_1\lambda_2\cdots\lambda_{n-1}.
+\]
+
+\end{theorem}
+
+\subsection{Spanning Tree Algorithms}
+
+\begin{algorithm}[H]
+\caption{Kruskal's Algorithm}
+\begin{algorithmic}
+\State $G = (V, E) \gets$ The original graph
+\State $S \gets \varnothing$ \Comment{Empty set of edges}
+\While{$(V, S)$ not a spanning tree}
+    \State $e \gets$ edge from $E$ with minimal weight not in S
+    \State Remove $e$ from $E$
+    \If{$(V, S \cup \{e\}$) loop-free}
+        \State Add $e$ to $S$
+    \Else
+        \State Discard $e$
+    \EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Prim's Algorithm}
+\begin{algorithmic}
+\State $G = (V, E) \gets$ The original graph
+\State $S \gets \varnothing$ \Comment{Empty set of edges}
+\State $N \gets \{v_0\}$ \Comment{Set with a starting vertex}
+\While{$N \neq V$}
+    \State $e \gets$ edge from $E$ with min. weight $\notin$ S and adjacent to any $v \in N$
+    \State Remove $e$ from $E$
+    \If{For $e = (v, u)$, $u$ not in $N$}
+        \State Add $e$ to $S$
+        \State Add $u$ to $N$
+    \Else
+        \State Discard $e$
+    \EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Shortest Path Algorithms}
+
+\missing[inline]{Dijkstra}\
+\missing[inline]{Bellman-Ford}\
+\missing[inline]{Floyd-Warshall}
+
+\subsection{Matroids}
+
+\begin{definition}[Matroid]\label{def:matroid}
+    A matroid is a pair $(E, I)$ where $E$ is a finite \textbf{ground set} and $I$ is a family of subsets (\textbf{independent sets}) of $E$. The following properties hold (independence axioms):
+    \begin{itemize}
+        \item[1)] $\varnothing \in I$
+        \item[2)] $B \in I$, $A \subseteq B \implies A \in I$ (downward-closedness)
+        \item[3)] $I_1, I_2 \in I$, $|I_1| < |I_2| \implies \exists e \in I_2 - I_1$, $I_1 \cup \{e\} \in I$ (the difference of $I_1$ and $I_2$ contains an element that, when combined with the smaller set, is in $I$)
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Cardinality of Bases of a Matroid]
+    All bases of a matroid have the same cardinality. A base can be defined as a maximal set in $I$, therefore this must be true due to the third independence axiom seen in Definition \ref{def:matroid}
+\end{theorem}
+
+\subsection{Flow Networks}
+
+\missing[inline]{Flow}\
+\missing[inline]{Cut}\
+
+\begin{definition}[Capacity of a Cut]
+    Let $S$, $T$ be subsets of $V$ of a graph $(V, E)$, i.e. a cut with $s \in S$ and $t \in T$.
+    Then the \textbf{capacity} of this cut $C(S, T)$ is the sum of weights of edges going crossing from $S$ to $T$.
+    \[
+    C(S, T) = \sum_{\substack{  (u, v) \in E \\ u \in S \\ v \in T}} w(u, v)
+    \]
+\end{definition}
+
+\begin{theorem}[Value of Flow]
+    
+\end{theorem}
+
+\begin{theorem}[Min-Flow-Max-Cut]
+    In a flow network, the maximum amount of flow passing from source $s$ to sink $t$ is equal to the total weight of the edges in a minimum cut, i.e. the smallest total weight of edges needed to disconnect $s$ from $t$.
+\end{theorem}
+
+\subsubsection{Flow Algorithms}
+
+\missing[inline]{Ford-Fulkerson}\
+\missing[inline]{Edmonds-Karp}
+
+\subsection{Graph Coloring}
+
+\begin{definition}[Chromatic Number]
+    The \textbf{chromatic number} $\mathcal{X}(G)$ is the min. number of colors in a proper vertex coloring of $G$.
+\end{definition}
+
+\begin{theorem}[4-Color Theorem]
+    \[\displaystyle 
+    G \text{ is planar} \iff \mathcal{X}(G) \leq 4
+    \]
+\end{theorem}

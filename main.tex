@@ -1,0 +1,49 @@
+\documentclass{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{bm}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+% Definitions, Theorems, etc.
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+% Metadata
+\title{Discrete Mathematics VO Script}
+\author{Daniel Schloms\\
+        TU Wien}
+\date{}
+
+% TODO command
+\newcommandx{\missing}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This script compiles the contents of the VO Discrete Mathematics into a document.
+
+\input{graph_theory}
+
+\input{combinatorics.tex}
+
+\input{generating_functions.tex}
+
+\input{posets.tex}
+
+\end{document}
